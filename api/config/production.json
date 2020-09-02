@@ -16,6 +16,9 @@
     "password": "",
     "database": ""
   },
+  "redis": {
+    "url": "redis://redis:6379"
+  },
   "cookie": {
     "secure": true,
     "secret": "placeholder",

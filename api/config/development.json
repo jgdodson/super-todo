@@ -16,10 +16,13 @@
     "password": "",
     "database": ""
   },
+  "redis": {
+    "url": "redis://redis:6379"
+  },
   "cookie": {
     "secure": false,
-    "secret": "placeholder",
-    "name": "starter-app"
+    "secret": "",
+    "name": "super-todo"
   },
   "oauth": {
     "callbackURL": "http://localhost:4000/auth/google/callback"

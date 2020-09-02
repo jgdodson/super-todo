@@ -2,14 +2,13 @@ import config from 'config';
 import express from 'express';
 import session from 'express-session';
 import connect_redis from 'connect-redis';
-import body_parser from 'body-parser';
 import path from 'path';
 import hsts from 'hsts';
 
 import redirect from './middleware/redirect';
 
 // Routers
-import ExampleRouter from './routes/example';
+import ItemRouter from './routes/items';
 
 // Instantiate the App
 const app = express();
@@ -36,13 +35,13 @@ app.use(
   }),
 );
 
-app.use(body_parser.json());
-app.use(body_parser.urlencoded({ extended: false }));
+// Parse request bodies containing JSON
+app.use(express.json());
 
 const RedisStore = connect_redis(session);
 
 const store_options = {
-  url: process.env.REDIS_URL,
+  url: config.get<string>('redis.url'),
 };
 
 // Configure the sessions
@@ -73,7 +72,7 @@ app.use(session(session_options));
  *
  * This is where you attach routers for various portions of your API
  */
-app.use('/', ExampleRouter);
+app.use('/api/items', ItemRouter);
 
 // Serve static files in production
 if (config.get('app.serveStaticBuild')) {

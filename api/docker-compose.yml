@@ -11,3 +11,25 @@ services:
     working_dir: /usr/app
     volumes:
       - '.:/usr/app'
+    depends_on:
+      - redis
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'lexical_me'
+      MYSQL_USER: 'development'
+      MYSQL_PASSWORD: 'development'
+
+  redis:
+    image: redis:6.0.5
+    ports:
+      - '6379:6379'
+    expose:
+      - '6379'
